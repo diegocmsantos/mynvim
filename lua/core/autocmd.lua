@@ -1,3 +1,4 @@
+-- auto format and import when saving a go file
 vim.api.nvim_create_autocmd("BufWritePre", {
   pattern = "*.go",
   callback = function()
@@ -21,6 +22,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   end
 })
 
+-- save go file when leaving the insert mode or the text has been changed
 vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
   pattern = "*.go",
   callback = function()
