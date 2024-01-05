@@ -45,18 +45,19 @@ return {
 		-- require('mason-nvim-dap').setup_handlers()
 
 		-- Basic debugging keymaps, feel free to change to your liking!
-		vim.keymap.set('n', '<F5>', dap.continue)
-		vim.keymap.set('n', '<F7>', dap.step_into)
-		vim.keymap.set('n', '<F8>', dap.step_over)
-		vim.keymap.set('n', '<S-<F7>>', dap.step_out)
-		vim.keymap.set('n', '<F9>', dap.terminate)
-		vim.keymap.set('n', '<leader>db', dap.toggle_breakpoint)
+		vim.keymap.set('n', '<F5>', dap.continue, { silent = true, noremap = true, desc = 'Continue' })
+		vim.keymap.set('n', '<F7>', dap.step_into, { silent = true, noremap = true, desc = 'Step into' })
+		vim.keymap.set('n', '<F8>', dap.step_over, { silent = true, noremap = true, desc = 'Step over' })
+		vim.keymap.set('n', '<S-<F7>>', dap.step_out, { silent = true, noremap = true, desc = 'Step out' })
+		vim.keymap.set('n', '<F9>', dap.terminate, { silent = true, noremap = true, desc = 'Terminate' })
+		vim.keymap.set('n', '<leader>db', dap.toggle_breakpoint,
+			{ silent = true, noremap = true, desc = 'Toggle breakpoint' })
 		vim.keymap.set('n', '<leader>dB', function()
 			dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
-		end)
+		end, { silent = true, noremap = true, desc = 'Set breakpoint condition' })
 
 		-- dap ui keymaps
-		vim.keymap.set('n', '<leader>du', dapui.toggle)
+		vim.keymap.set('n', '<leader>du', dapui.toggle, { silent = true, noremap = true, desc = 'Toggle UI' })
 
 		-- Dap UI setup
 		-- For more information, see |:help nvim-dap-ui|
@@ -84,8 +85,11 @@ return {
 		dap.listeners.before.event_exited['dapui_config'] = dapui.close
 
 		-- Install golang specific config
-		require('dap-go').setup()
-		vim.keymap.set('n', '<leader>dt', require('dap-go').debug_test)
-		vim.keymap.set('n', '<leader>dl', require('dap-go').debug_last)
+		local dapgo = require('dap-go')
+		vim.keymap.set('n', '<leader>dt', dapgo.debug_test,
+			{ silent = true, noremap = true, desc = 'Debug test' })
+		vim.keymap.set('n', '<leader>dl', dapgo.debug_last_test,
+			{ silent = true, noremap = true, desc = 'Debug last test' })
+		dapgo.setup()
 	end,
 }
