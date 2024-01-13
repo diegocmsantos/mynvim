@@ -21,6 +21,9 @@ return {
 
 		-- Add your own debuggers here
 		'leoluz/nvim-dap-go',
+
+		-- Shows the current line in the virtual text
+		'theHamsta/nvim-dap-virtual-text',
 	},
 
 	config = function()
@@ -55,6 +58,9 @@ return {
 		vim.keymap.set('n', '<leader>dB', function()
 			dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
 		end, { silent = true, noremap = true, desc = 'Set breakpoint condition' })
+		vim.keymap.set('n', '<leader>dr', dap.repl.open, { silent = true, noremap = true, desc = 'Open REPL' })
+		vim.keymap.set('n', '<leader>v', '<Cmd>lua require("dapui").eval()<CR>',
+			{ silent = true, noremap = true, desc = 'Evaluate expression' })
 
 		-- dap ui keymaps
 		vim.keymap.set('n', '<leader>du', dapui.toggle, { silent = true, noremap = true, desc = 'Toggle UI' })
@@ -91,5 +97,8 @@ return {
 		vim.keymap.set('n', '<leader>dl', dapgo.debug_last_test,
 			{ silent = true, noremap = true, desc = 'Debug last test' })
 		dapgo.setup()
+
+		-- Install virtual text
+		require('nvim-dap-virtual-text').setup()
 	end,
 }
