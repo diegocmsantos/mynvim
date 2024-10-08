@@ -14,6 +14,7 @@ return {
 	dependencies = {
 		-- Creates a beautiful debugger UI
 		'rcarriga/nvim-dap-ui',
+		'nvim-neotest/nvim-nio',
 
 		-- Installs the debug adapters for you
 		'williamboman/mason.nvim',
@@ -89,6 +90,9 @@ return {
 		dap.listeners.after.event_initialized['dapui_config'] = dapui.open
 		-- dap.listeners.before.event_terminated['dapui_config'] = dapui.close
 		dap.listeners.before.event_exited['dapui_config'] = dapui.close
+
+		-- allow use of the vscode launch.json file for debugging
+		require('dap.ext.vscode').load_launchjs(nil, {})
 
 		-- Install golang specific config
 		local dapgo = require('dap-go')

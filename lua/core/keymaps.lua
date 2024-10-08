@@ -56,10 +56,10 @@ keymap.set({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clea
 -- Clear search, diff update and redraw
 -- taken from runtime/lua/_editor.lua
 keymap.set(
-  "n",
-  "<leader>ur",
-  "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
-  { desc = "Redraw / clear hlsearch / diff update" }
+	"n",
+	"<leader>ur",
+	"<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
+	{ desc = "Redraw / clear hlsearch / diff update" }
 )
 
 -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
@@ -99,11 +99,11 @@ keymap.set("n", "]q", vim.cmd.cnext, { desc = "Next quickfix" })
 
 -- diagnostic
 local diagnostic_goto = function(next, severity)
-  local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
-  severity = severity and vim.diagnostic.severity[severity] or nil
-  return function()
-    go({ severity = severity })
-  end
+	local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
+	severity = severity and vim.diagnostic.severity[severity] or nil
+	return function()
+		go({ severity = severity })
+	end
 end
 keymap.set("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
 keymap.set("n", "]d", diagnostic_goto(true), { desc = "Next Diagnostic" })
@@ -116,7 +116,9 @@ keymap.set("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
 -- stylua: ignore start
 
 -- toggle options
-keymap.set("n", "<leader>uT", function() if vim.b.ts_highlight then vim.treesitter.stop() else vim.treesitter.start() end end, { desc = "Toggle Treesitter Highlight" })
+keymap.set("n", "<leader>uT",
+	function() if vim.b.ts_highlight then vim.treesitter.stop() else vim.treesitter.start() end end,
+	{ desc = "Toggle Treesitter Highlight" })
 
 -- quit
 keymap.set("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit all" })
@@ -125,7 +127,7 @@ keymap.set("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit all" })
 keymap.set("n", "<leader>ui", vim.show_pos, { desc = "Inspect Pos" })
 
 -- floating terminal
-keymap.set("n", "<c-/>", "<cmd>ToggleTerm direction=float<cr>", { desc = "Terminal (root dir)" })
+keymap.set("n", "<leader>tt", "<cmd>ToggleTerm direction=float<cr>", { desc = "Terminal (root dir)" })
 
 -- Terminal Mappings
 keymap.set("t", "<esc><esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
@@ -151,4 +153,3 @@ keymap.set("n", "<leader><tab><tab>", "<cmd>tabnew<cr>", { desc = "New Tab" })
 keymap.set("n", "<leader><tab>]", "<cmd>tabnext<cr>", { desc = "Next Tab" })
 keymap.set("n", "<leader><tab>d", "<cmd>tabclose<cr>", { desc = "Close Tab" })
 keymap.set("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
-

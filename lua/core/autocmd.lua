@@ -36,3 +36,10 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 		vim.lsp.buf.format()
 	end,
 })
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+	pattern = "*.json",
+	callback = function()
+		vim.cmd "%!jq ."
+	end,
+})
